@@ -1,0 +1,6 @@
+/env.js
+/[Bb]uild
+/node_modules
+*.fuse*
+._.DS_Store
+.DS_Store
