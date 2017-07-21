@@ -14,3 +14,10 @@ var gotthamView = new Ractive({
 		};
 	},
 });
+
+/*var lat = '20',
+	long = '25';
+
+apiRequest('get', 'http://code-challenge.maplink.com.br/coordinate?q='+lat+','+long).then(function(response) {
+	console.log(response);
+});*/
