@@ -13,7 +13,8 @@ var gulp = require("gulp"),
     uglify = require("gulp-uglify"),
     imagemin = require("gulp-imagemin"),
     cache = require("gulp-cache"),
-    minifycss = require("gulp-clean-css");
+    minifycss = require("gulp-clean-css"),
+    sass = require("gulp-sass");
 
 // Vars Locais
 var sourcePath  = "source/",
@@ -25,6 +26,7 @@ var sourcePath  = "source/",
 // Watch - Atualiza a Build a cada vez que houverem modificações;
 gulp.task("watch", function() {
     watching = true;
+    gulp.watch([sourcePath+"**/sass/**/*.scss"], ["sass"]);
     gulp.watch([sourcePath+"**/*.css", "!"+sourcePath+"**/vendor/**/*.css"], ["create-dynamic-css"]);
     gulp.watch([sourcePath+"**/vendor/**/*.css"], ["create-static-css"]);
     gulp.watch([sourcePath+"**/*.js", "!"+sourcePath+"**/vendor/**/*.js", "!"+sourcePath+"**/essentials/**/*.js"], ["create-dynamic-js"]);
@@ -35,11 +37,18 @@ gulp.task("watch", function() {
     gulp.watch([sourcePath+"**/*.*", "!"+sourcePath+"**/*.js", "!"+sourcePath+"**/*.css", "!"+sourcePath+"**/*.html"], ["move-all-other-files"]);
 });
 
+gulp.task("sass", function () {
+  return gulp.src([sourcePath+"**/sass/**/*.scss"])
+    .pipe(print())
+    .pipe(sass().on("error", sass.logError))
+    .pipe(rename({dirname:"", suffix:".sass"}))
+    .pipe(gulp.dest(sourcePath+"assets/css/", {overwrite: true}))
+});
+ 
 // Cria o bundle de CSS dinâmico - contendo todo o CSS específico
-gulp.task("create-dynamic-css", ["clear"], function() {
+gulp.task("create-dynamic-css", ["clear", "sass"], function() {
   return gulp.src([sourcePath+"**/*.css", "!"+sourcePath+"**/vendor/**/*.css"])
     .pipe(order([
-    "assets/css/app.css",
     "**/*.css"
      ], {base: sourcePath}))
     .pipe(print())
@@ -137,7 +146,7 @@ gulp.task("move-all-components", ["clear"], function() {
 
 // Move demais arquivos das demais extensões não tratadas (fonts, audios, sourcemaps, etc)
 gulp.task("move-all-other-files", ["clear"], function() {
-  return gulp.src([sourcePath+"**/*.*", "!"+sourcePath+"**/*.js", "!"+sourcePath+"**/*.css", "!"+sourcePath+"**/*.html", "!"+sourcePath+"**/img/**/*.*"])
+  return gulp.src([sourcePath+"**/*.*", "!"+sourcePath+"**/*.js", "!"+sourcePath+"**/*.css", "!"+sourcePath+"**/*.scss", "!"+sourcePath+"**/*.html", "!"+sourcePath+"**/img/**/*.*"])
     .pipe(gulp.dest(buildPath))
 });
 
