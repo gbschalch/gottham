@@ -8,11 +8,28 @@ var gotthamView = new Ractive({
 
 	data: function() {
 		return {
-
-			mainTitle : 'Gottham Project'
-
+			mainTitle : 'Gottham Anti-Evil System'
 		};
 	},
+
+	oncomplete: function() {
+		var batMap = document.getElementById('batMap');
+		batMap.addEventListener('mousemove', gotthamView.followPointer);
+	},
+
+	handleMouseCursor: function(isOver) {
+		var batMap = document.getElementById('batMap'),
+			batContainer = document.getElementById('batContainer');
+		if (isOver) {
+			batContainer.classList.add('batmask');
+		} else {
+			batContainer.classList.remove('batmask');
+		}
+	},
+
+	followPointer: function(event) {
+		console.log(event);
+	}
 });
 
 /*var lat = '20',

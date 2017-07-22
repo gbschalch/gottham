@@ -1,10 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Anton|Open+Sans+Condensed:300');
 
-$dark-color: #222;
-$light-color: #777;
+$dark-color: #151515;
+$light-color: #666;
 $font1: 'Anton', sans-serif;
 $font2: 'Open Sans Condensed', sans-serif;
+$batman-yellow: #FDE311;
 
-body { background: $dark-color; color:$light-color; }
-html, body, h1, h2, h3, h4, h5, h6, p { font-family: $font1; }
+body { background: $dark-color; color:$light-color;padding:5vh 0; }
+html, body {font-family: $font2;}
+h1, h2, h3, h4, h5, h6 { font-family: $font1; }
 
+
+.bat-container img {display:none;position:absolute;}
+.bat-container.batmask img {display:block;}
+.bat-canvas {background:url('../img/gottham-city.jpg');background-size:cover;width:100%;border:1px solid $batman-yellow;}

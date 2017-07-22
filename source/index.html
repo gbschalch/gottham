@@ -27,27 +27,35 @@
   </head>
   <body>
 
-    <div id="view-body">
+    <section id="view-body">
 
       <script id="baseView" type="text/ractive">
-        <header class="main-header">
-          <h1>{{mainTitle}}</h1>
+        <header class="main-header text-center">
+          <h1><img src="assets/img/batman-logo.svg" style="width:15%;"> {{mainTitle}}</h1>
+          <p>Insira a posição do batman.</p>
         </header>
-        <section class="body">
-          
-        </section>
+        <article>
+            <div class="grid-x">
+                <div id="batContainer" class="bat-container cell medium-8 medium-offset-2 small-10 small-offset-1">
+                    <img id="batMask" alt="Batman Mask" src="assets/img/batman-mask.png" />
+                    <canvas id="batMap" class="bat-canvas" on-mouseenter="handleMouseCursor(true)" on-mouseleave="handleMouseCursor()"></canvas>
+                </div>
+            </div>
+        </article>
         <footer class="main-footer">
           
         </footer>
       </script>
       
-    </div>
+    </section>
 
     <!-- @if development -->
     <script src="assets/js/vendor/foundation/jquery.js"></script>
     <script src="assets/js/vendor/foundation/what-input.js"></script>
     <script src="assets/js/vendor/foundation/foundation.js"></script>
     <script src="assets/js/vendor/ractive/ractive.js"></script>
+    <script src="assets/js/vendor/ractive/ractive-events-tap.js"></script>
+    <script src="assets/js/vendor/ractive/ractive-events-keys.js"></script>
     <script src="assets/js/app.js"></script>
     <!-- @endif -->
 
