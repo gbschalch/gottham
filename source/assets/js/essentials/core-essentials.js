@@ -15,9 +15,9 @@ var apiRequest = function(method, route, data, type)
 
         r.open(m, route, true);
 
-        r.withCredentials = true;
-        r.setRequestHeader('Content-type', 'application/json');
-        r.setRequestHeader('Accept', 'application/json');
+        //r.withCredentials = true;
+        //r.setRequestHeader('Content-type', 'application/json');
+        //r.setRequestHeader('Accept', 'application/json');
 
         r.onreadystatechange = function()
         {
