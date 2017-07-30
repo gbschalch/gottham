@@ -36,9 +36,33 @@
         </header>
         <article>
             <div class="grid-x">
-                <div id="batContainer" class="bat-container cell medium-8 medium-offset-2 small-10 small-offset-1">
-                    <img id="batMask" alt="Batman Mask" src="assets/img/batman-mask.png" />
-                    <canvas id="batMap" class="bat-canvas" on-mouseenter="handleMouseCursor(true)" on-mouseleave="handleMouseCursor()"></canvas>
+                <div id="batContainer" class="bat-container cell medium-8 medium-offset-2 small-10 small-offset-1" {{#if showingPositions}} style="cursor:default;" {{/if}}>
+                    {{#if showCursor}}
+                    <span class="cursor {{#if loadingPositions}} loading {{/if}} unselectable" style="top:{{cursorY}}px;left:{{cursorX}}px;">
+                        <img src="assets/img/batman-logo.svg" alt="Bat Cursor">
+                    </span>
+                    {{/if}}
+                    <canvas id="batMap" class="bat-canvas" on-mouseenter="handleMouseCursor(true)" on-mouseleave="handleMouseCursor()" on-tap="pinPoint()"></canvas>
+                </div>
+            </div>
+
+            <div class="grid-x" style="transition:opacity 0.3s;opacity:{{#if villainTargets}}1{{else}}0{{/if}}">
+                <div class="villain-info cell medium-8 medium-offset-2 small-10 small-offset-1">
+                    <h3><i class="ico villain {{villainData.name.toLowerCase()}}"></i>{{villainData.name}}</h3>
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <thead>
+                            <th>Alvos</th>
+                            <th>Probabilidade</th>
+                        </thead>
+                        <tbody>
+                            {{#each villainTargets}}
+                            <tr>
+                                <td>{{ place }}</td>
+                                <td>{{ Math.round(probability) }}%</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </article>
@@ -56,6 +80,7 @@
     <script src="assets/js/vendor/ractive/ractive.js"></script>
     <script src="assets/js/vendor/ractive/ractive-events-tap.js"></script>
     <script src="assets/js/vendor/ractive/ractive-events-keys.js"></script>
+    <script src="assets/js/vendor/underscore/underscore.js"></script>
     <script src="assets/js/app.js"></script>
     <!-- @endif -->
 
